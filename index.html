@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benny's Artemis - Sito Ufficiale</title>
+    <style>
+        /* SFONDO CON LA TUA FOTO UFFICIALE (BENNY.jpg) */
+        body {
+            background-image: 
+                linear-gradient(rgba(10, 10, 10, 0.75), rgba(10, 10, 10, 0.88)), 
+                url('BENNY.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        /* CONTENITORE PRINCIPALE OFFICINA */
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: rgba(14, 14, 14, 0.94);
+            border: 2px solid #ff0000;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 0 35px rgba(255, 0, 0, 0.3);
+        }
+
+        /* STRUTTURA DI PROSPETTIVA PER L'INSEGNA NEON */
+        header {
+            text-align: center;
+            border-bottom: 3px solid #ff0000;
+            padding-bottom: 35px;
+            margin-bottom: 35px;
+            perspective: 1000px; 
+        }
+
+        /* INSEGNA 3D PERFETTA: RUOTA SENZA RIGIRARSI AL CONTRARIO */
+        .insegna-contenitore {
+            display: inline-block;
+            animation: oscillazione3D 6s ease-in-out infinite alternate;
+        }
+
+        .testo-3d-definitivo {
+            font-family: 'Arial Black', 'Impact', sans-serif;
+            font-size: 48px;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+            font-weight: 900;
+            display: inline-block;
+            
+            /* Animazione di rotazione controllata per non mostrare il retro vuoto */
+            animation: rotazioneFronteRetro 7s linear infinite;
+            
+            /* 12 STRATI DI ESTRUSIONE PER UN EFFETTO BLOCCO MASSICCIO E ULTRA-DOPPIO */
+            text-shadow: 
+                0 1px 0 #cc0000, 0 2px 0 #b30000, 0 3px 0 #a30000, 0 4px 0 #990000,
+                0 5px 0 #880000, 0 6px 0 #770000, 0 7px 0 #660000, 0 8px 0 #550000,
+                0 9px 0 #440000, 0 10px 0 #330000, 0 11px 0 #220000, 0 12px 1px rgba(0,0,0,0.7),
+                0 0 20px rgba(255, 0, 0, 0.6), 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animazione accattivante che fa girare il testo mantenendo la tridimensionalità leggibile */
+        @keyframes rotazioneFronteRetro {
+            0% {
+                transform: rotateY(-45deg) rotateX(10deg);
+            }
+            50% {
+                transform: rotateY(45deg) rotateX(-10deg);
+            }
+            100% {
+                transform: rotateY(-45deg) rotateX(10deg);
+            }
+        }
+
+        header p {
+            color: #cccccc;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 25px 0 0 0;
+        }
+
+        /* STRUTTURA CATEGORIE E LISTINO PREZZI */
+        .categoria-titolo {
+            font-size: 22px;
+            color: #ffffff;
+            border-left: 5px solid #ff0000;
+            padding-left: 12px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .lista-interventi {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+
+        .lista-interventi li {
+            background-color: rgba(22, 22, 22, 0.95);
+            border: 1px solid #333333;
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lista-interventi li:hover {
+            border: 1px solid #ff0000;
+        }
+
+        .intervento-nome {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .intervento-prezzo {
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* SCATOLE SUBTOTALI */
+        .subtotale-box {
+            background-color: rgba(255, 0, 0, 0.12);
+            border: 1px solid #ff0000;
+            border-radius: 6px;
+            padding: 12px 20px;
+            text-align: right;
+            font-weight: bold;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 35px;
+        }
+
+        /* REGOLAMENTO ESTETICA */
+        .regolamento-box {
+            background-color: rgba(30, 10, 10, 0.9);
+            border: 2px solid #ff0000;
+            border-radius: 8px;
+            padding: 22px;
+            margin: 30px 0;
+        }
+
+        .regolamento-box h3 {
+            color: #ff3333;
+            margin-top: 0;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+
+        .regolamento-box p { margin: 0 0 12px 0; color: #ffffff; font-size: 15px; }
+        .regolamento-box ul { margin: 0; padding-left: 20px; color: #dddddd; font-size: 14px; }
+        .regolamento-box li { margin-bottom: 6px; }
+
+        /* AVVISO MECCANICI */
+        .avviso-box {
+            background-color: rgba(20, 5, 5, 0.95);
+            border: 1px dashed #ff0000;
+            border-radius: 6px;
+            padding: 18px;
+            margin-top: 15px;
+            margin-bottom: 35px;
+        }
+        
+        .avviso-box strong { color: #ff3333; text-transform: uppercase; display: block; margin-bottom: 6px; }
+        .avviso-box p { margin: 0; font-size: 14px; color: #dddddd; }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid #333333;
+            font-size: 13px;
+            color: #888888;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="insegna-contenitore">
+            <div class="testo-3d-definitivo">Benny's Artemis</div>
+        </div>
+        <p>Officina Meccanica & Centro Estetico Ufficiale</p>
+    </header>
+
+    <div class="categoria-titolo">🛠️ [01] Ripristino e Cura del Veicolo</div>
+    <ul class="lista-interventi">
+        <li><span class="intervento-nome">Riparazioni Meccaniche 🔧</span><span class="intervento-prezzo">2.500$</span></li>
+        <li><span class="intervento-nome">Pulizia Dettagliata 🧼</span><span class="intervento-prezzo">1.000$</span></li>
+    </ul>
+    <div class="subtotale-box">Subtotale Ripristino: 3.500$</div>
+
+    <div class="categoria-titolo">🎨 [02] Categoria: Estetica</div>
+    <ul class="lista-interventi">
+        <li><span class="intervento-nome">Verniciatura Completa 🎨</span><span class="intervento-prezzo">1.000$</span></li>
+        <li><span class="intervento-nome">Componenti Estetiche Varie (Neon, Luci, Cerchi, ecc.) ⚙️</span><span class="intervento-prezzo">Prezzo Variabile</span></li>
+    </ul>
+    <div class="subtotale-box">Subtotale Estetica Base: 1.000$</div>
+
+    <div class="regolamento-box">
+        <h3>📝 Regolamento Interno Estetica (Prezzi Variabili)</h3>
+        <p>Si applica rigidamente la formula ufficiale aziendale:</p>
+        <p style="font-size: 22px; color: #ff0000; font-weight: bold; text-align: center; margin: 15px 0;">
+            ➡️ PREZZO DI LISTINO + 200$ (Maggiorazione Fissa)
+        </p>
+        <ul>
+            <li><strong>Esempio:</strong> Pezzo da 20$ ➜ 20$ + 200$ = 220$ finali.</li>
+            <li><strong>Arrotondamento:</strong> Cifre con spiccioli vengono arrotondate alla cifra tonda più vicina.</li>
+        </ul>
+    </div>
+
+    <div class="categoria-titolo">📦 [03] Categoria: Full Kit</div>
+    <ul class="lista-interventi">
+        <li>
+            <div>
+                <span class="intervento-nome" style="display: block;">Meccanica Massima LV 4 📦👑</span>
+                <span style="font-size: 13px; color: #aaaaaa;">(Include il livello 4 di tutti i componenti meccanici)</span>
+            </div>
+            <span class="intervento-prezzo">13.000$</span>
+        </li>
+        <li>
+            <div>
+                <span class="intervento-nome" style="display: block;">Full Kit Estetica 🖥️📊</span>
+                <span style="font-size: 13px; color: #aaaaaa;">(Calcolato tramite calcolatrice aziendale)</span>
+            </div>
+            <span class="intervento-prezzo">[Calcolo da PC]</span>
+        </li>
+    </ul>
+    <div class="subtotale-box">Subtotale Full Kit Meccanica: 13.000$</div>
+
+    <div class="avviso-box">
+        <strong>⚠️ Avviso Importante per lo Staff:</strong>
+        <p>Il pacchetto FULL KIT MECCANICA non comprende l'estetica. Sono due elementi gestiti separatamente.</p>
+    </div>
+
+    <div class="categoria-titolo">🚀 [04] Elaborazione Prestazioni (Motore & Turbo)</div>
+    <ul class="lista-interventi">
+        <li><span>Modifica Turbo 🏎️💨</span><span class="intervento-prezzo">800$</span></li>
+        <li><span>Upgrade Motore LIVELLO 1 ⚙️</span><span class="intervento-prezzo">550$</span></li>
+        <li><span>Upgrade Motore LIVELLO 2 ⚙️🔥</span><span class="intervento-prezzo">1.000$</span></li>
+        <li><span>Upgrade Motore LIVELLO 3 ⚙️⚡</span><span class="intervento-prezzo">1.765$</span></li>
+        <li><span>Upgrade Motore LIVELLO 4 ⚙️👑</span><span class="intervento-prezzo">3.550$</span></li>
+    </ul>
+    <div class="subtotale-box">Subtotale Potenza: 7.665$</div>
+
+    <div class="categoria-titolo">⚙️ [05] Trasmissioni</div>
+    <ul class="lista-interventi">
+        <li><span>Upgrade Trasmissione LIVELLO 1 📦</span><span class="intervento-prezzo">525$</span></li>
+        <li><span>Upgrade Trasmissione LIVELLO 2 📦🔥</span><span class="intervento-prezzo">710$</span></li>
+        <li><span>Upgrade Trasmissione LIVELLO 3 📦⚡</span><span class="intervento-prezzo">1.320$</span></li>
+        <li><span>Upgrade Trasmissione LIVELLO 4 📦👑</span><span class="intervento-prezzo">1.400$</span></li>
+    </ul>
+    <div class="subtotale-box">Subtotale Trasmissioni: 3.955$</div>
+
+    <div class="categoria-titolo">🛡️ [06] Corazze (Blindatura)</div>
+    <ul class="lista-interventi">
+        <li><span>Upgrade Corazza LIVELLO 1 🛡️</span><span class="intervento-prezzo">1.170$</span></li>
+        <li><span>Upgrade Corazza LIVELLO 2 🛡️🔥</span><span class="intervento-prezzo">2.080$</span></li>
+        <li><span>Upgrade Corazza LIVELLO 3 🛡️⚡</span><span class="intervento-prezzo">2.600$</span></li>
+        <li><span>Upgrade Corazza LIVELLO 4 🛡️👑</span><span class="intervento-prezzo">3.320$</span></li>
+        <li><span>Upgrade Corazza LIVELLO 5 🛡️💎</span><span class="intervento-prezzo">3.800$</span></li>
+    </ul>
+    <div class="subtotale-box">Subtotale Corazze: 12.970$</div>
+
+    <div class="categoria-titolo">🛑 [07] Sicurezza e Controllo (Freni)</div>
+    <ul class="lista-interventi">
+        <li><span>Upgrade Freni LIVELLO 1 🛑</span><span class="intervento-prezzo">300$</span></li>
+        <li><span>Upgrade Freni LIVELLO 2 🛑🔥</span><span class="intervento-prezzo">425$</span></li>
+        <li><span>Upgrade Freni LIVELLO 3 🛑⚡</span><span class="intervento-prezzo">650$</span></li>
+        <li><span>Upgrade Freni LIVELLO 4 🛑👑</span><span class="intervento-prezzo">770$</span></li>
+    </ul>
+    <div class="subtotale-box">Subtotale Freni: 2.145$</div>
+
+    <footer>
+        <p style="color: #ff0000; font-weight: bold; font-size: 16px; margin-bottom: 5px;">Benny's Artemis © 2026</p>
+        <p>Listino Ufficiale Aziendale • Buon RP!</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
