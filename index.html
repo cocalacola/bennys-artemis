@@ -408,16 +408,16 @@
         <div class="griglia-form">
             <div class="campo-form">
                 <label>👤 Nome e Cognome Meccanico (IC)</label>
-                <input type="text" id="finNomeIC" placeholder="Es. PASCAL ZAPPATOR">
+                <input type="text" id="finNomeIC" placeholder="Inserisci il tuo Nome e Cognome">
             </div>
             <div class="campo-form">
                 <label>🆔 Il tuo Discord ID (Solo Numeri)</label>
-                <input type="text" id="finDiscordID" placeholder="Es. 1035308087684374608">
+                <input type="text" id="finDiscordID" placeholder="Inserisci il tuo ID numerico">
             </div>
             <div class="campo-form">
                 <label>📋 Grado Aziendale (% Guadagno)</label>
                 <select id="finGrado" onchange="aggiornaTotale()">
-                    <option value="" disabled selected>Seleziona il tuo grado...</option>
+                    <option value="" disabled selected>Scegli il tuo grado...</option>
                     <option value="0.35">Direttore (35%)</option>
                     <option value="0.30">Vice Direttore (30%)</option>
                     <option value="0.23">Responsabile Officina (23%)</option>
@@ -729,7 +729,6 @@
         if (e.key === 'F12') { e.preventDefault(); return false; }
     });
 
-    // 🔗 LINK WEBHOOK UNIFICATO
     const WEBHOOK_UNIFICATO = "https://discord.com/api/webhooks/1507871053689393272/P6-cnOKIxoFH9olLRE8BV_quCnKJ5lp9qv3dbrn7T4GKT8yrtOMkNXQmK4J0GtlbnC1m";
 
     let globalTotale = 0;
@@ -751,7 +750,6 @@
         aggiornaTotale();
     });
 
-    // 🔄 CALCOLO AUTOMATICO DEL TOTALE E DELLE QUOTE IN TEMPO REALE
     function aggiornaTotale() {
         globalTotale = 0;
         checkboxes.forEach(checkbox => {
@@ -782,27 +780,16 @@
     }
     checkboxes.forEach(checkbox => checkbox.addEventListener('change', aggiornaTotale));
 
-    // 🔄 FUNZIONE DI RESET COMPLETO DEI CAMPI DELLA PAGINA
     function resetFormGestionale() {
-        // Reset dei campi di configurazione iniziale
-        document.getElementById('finNomeIC').value = "";
-        document.getElementById('finDiscordID').value = "";
-        document.getElementById('finGrado').selectedIndex = 0;
-
-        // Reset dei componenti selezionati del listino e rimozione stile attivo
+        // Lasciamo intatti finNomeIC, finDiscordID e finGrado, svuotiamo solo le modifiche
         checkboxes.forEach(checkbox => {
             checkbox.checked = false;
             checkbox.closest('li').classList.remove('riga-attiva');
         });
-
-        // Reset quantità componenti estetiche
         inputQuantita.value = 0;
-
-        // Ricalcolo immediato per azzerare la barra strumenti in basso
         aggiornaTotale();
     }
 
-    // 🚀 INVIO DATI UNIFICATI CON UN SOLO CLICK
     function inviaLavoroUnificato() {
         const nomeIC = document.getElementById('finNomeIC').value.trim();
         const idDiscord = document.getElementById('finDiscordID').value.trim().replace(/[^0-9]/g, '');
@@ -826,9 +813,7 @@
         const testoGrado = selettoreGrado.options[selettoreGrado.selectedIndex].text;
         const quotaDipendente = Math.round(globalTotale * percentuale);
         const quotaAzienda = globalTotale - quotaDipendente;
-        const tagEsterno = `<@${idDiscord}>`;
 
-        // Genera la lista delle modifiche per l'embed
         let listaModificheSelezionate = "";
         checkboxes.forEach(checkbox => {
             if (checkbox.checked) {
@@ -839,15 +824,14 @@
             listaModificheSelezionate += `• **Componenti Estetiche x${inputQuantita.value}** (${(inputQuantita.value*1000).toLocaleString('de-DE')}$)\n`;
         }
 
-        // Payload configurato con titolo dell'embed aggiornato
+        // MODIFICATO: Rimosso completamente il campo 'content' con la stringa di testo esterna e il tag
         const payloadUnificato = {
-            content: `💼 **Nuovo Resoconto Lavoro Inviato da:** ${tagEsterno}`,
             embeds: [{
                 title: "🤖 [BENNY'S X ARTEMIS]",
-                color: 5814783, // Blu Discord classico
+                color: 14177041,
                 fields: [
                     { name: "👤 Meccanico (IC)", value: nomeIC.toUpperCase(), inline: true },
-                    { name: "🆔 Discord Account", value: tagEsterno, inline: true },
+                    { name: "🆔 Discord Account", value: `<@${idDiscord}>`, inline: true },
                     { name: "📋 Grado Aziendale", value: testoGrado, inline: false },
                     { name: "⚙️ Modifiche Installate", value: listaModificheSelezionate || "Nessuna", inline: false },
                     { name: "💰 Totale Fatturato", value: `**$ ${globalTotale.toLocaleString('de-DE')}**`, inline: false },
@@ -867,7 +851,7 @@
         .then(res => { 
             if(res.ok) { 
                 alert("🚀 Resoconto intervento inviato correttamente a Discord!");
-                resetFormGestionale(); // Azzeramento totale della pagina dopo l'esito positivo
+                resetFormGestionale();
             } else { 
                 alert("❌ Errore d'invio a Discord."); 
             }
